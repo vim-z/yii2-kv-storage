@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist kv-storage/yii2-kv-storage "*"
+php composer.phar require --prefer-dist vim-z/yii2-kv-storage "*"
 ```
 
 or add
 
 ```
-"kv-storage/yii2-kv-storage": "*"
+"vim-z/yii2-kv-storage": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -28,4 +28,4 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \KvStorage\AutoloadExample::widget(); ?>```
+<?= vimZ\kvStorage\AutoloadExample::widget(); ?>```
