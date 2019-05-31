@@ -1,6 +1,6 @@
 <?php
 
-namespace KvStorage;
+namespace vimZ\KvStorage;
 
 /**
  * This is just an example.

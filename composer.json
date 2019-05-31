@@ -1,5 +1,5 @@
 {
-    "name": "kv-storage/yii2-kv-storage",
+    "name": "vim-z/yii2-kv-storage",
     "description": "yii2-kv-storage",
     "type": "yii2-extension",
     "keywords": ["yii2","extension"],
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "KvStorage\\": ""
+            "vimZ\\kvStorage\\": "src"
         }
     }
 }
