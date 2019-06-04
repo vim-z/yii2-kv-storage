@@ -17,10 +17,25 @@ use Yii;
  */
 class KvStorage extends \yii\db\ActiveRecord
 {
+    /**
+     * 类型，1：字符串或者数字；2：是否；3：时间；4：比例；5：数字范围；6：时间范围
+     */
     const TYPE_TEXT = 1;
     const TYPE_WETHER = 2;
     const TYPE_DATE = 3;
-    const TYPE_RATE = 4;
+    const TYPE_RATIO = 4;
+    const TYPE_TEXT_RANGE = 5;
+    const TYPE_DATE_RANGE = 6;
+
+    const TYPE_ARR = [
+        self::TYPE_TEXT,
+        self::TYPE_WETHER,
+        self::TYPE_DATE,
+        self::TYPE_RATIO,
+        self::TYPE_TEXT_RANGE,
+        self::TYPE_DATE_RANGE,
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -35,9 +50,10 @@ class KvStorage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['key'], 'required'],
+            [['key', 'type'], 'required'],
             [['value', 'comment'], 'string'],
             [['type', 'updated_at', 'created_at'], 'integer'],
+            [['type'], 'in', 'range' => self::TYPE_ARR, 'message' => Yii::t('kv-storage', 'Please choose the right type')],
             [['key', 'tip'], 'string', 'max' => 128],
             [['key'], 'unique'],
         ];
@@ -63,24 +79,32 @@ class KvStorage extends \yii\db\ActiveRecord
     {
         if ($type === null) {
             $result = [
-                self::TYPE_TEXT => Yii::t('kv-storage','text'),
-                self::TYPE_WETHER => Yii::t('kv-storage','wether'),
-                self::TYPE_DATE => Yii::t('kv-storage','date'),
-                self::TYPE_RATE => Yii::t('kv-storage','rate'),
+                self::TYPE_TEXT => Yii::t('kv-storage', 'text'),
+                self::TYPE_WETHER => Yii::t('kv-storage', 'wether'),
+                self::TYPE_DATE => Yii::t('kv-storage', 'date'),
+                self::TYPE_RATIO => Yii::t('kv-storage', 'ratio'),
+                self::TYPE_TEXT_RANGE => Yii::t('kv-storage', 'text range'),
+                self::TYPE_DATE_RANGE => Yii::t('kv-storage', 'date range'),
             ];
         } else {
             switch ($type) {
                 case self::TYPE_TEXT:
-                    $result = Yii::t('kv-storage','text');
+                    $result = Yii::t('kv-storage', 'text');
                     break;
                 case self::TYPE_WETHER:
-                    $result = Yii::t('kv-storage','wether');
+                    $result = Yii::t('kv-storage', 'wether');
                     break;
                 case self::TYPE_DATE:
-                    $result = Yii::t('kv-storage','date');
+                    $result = Yii::t('kv-storage', 'date');
                     break;
-                case self::TYPE_RATE:
-                    $result = Yii::t('kv-storage','rate');
+                case self::TYPE_RATIO:
+                    $result = Yii::t('kv-storage', 'ratio');
+                    break;
+                case self::TYPE_TEXT_RANGE:
+                    $result = Yii::t('kv-storage', 'text range');
+                    break;
+                case self::TYPE_DATE_RANGE:
+                    $result = Yii::t('kv-storage', 'date range');
                     break;
                 default:
                     $result = '';
