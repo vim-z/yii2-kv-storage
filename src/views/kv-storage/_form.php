@@ -2,31 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use vimZ\kvStorage\assets\DatePickerAsset;
+use vimZ\kvStorage\assets\KvStorageAsset;
 
 /* @var $this yii\web\View */
-/* @var $model vimZ\kvStorage\models\KvStorage */
-/* @var $form yii\widgets\ActiveForm */
-DatePickerAsset::register($this);
-$this->registerJs('
-    $(function () {
-        $(\'#reservationtime\').daterangepicker({ 
-            timePicker: true, 
-            timePickerIncrement: 1, 
-            "timePicker24Hour": true,
-            timePickerSeconds: true,
-            locale: {
-                applyLabel: "确认",
-                cancelLabel: "取消",
-                resetLabel: "重置",
-          		format: \'YYYY-MM-DD HH:mm:ss\',
-          		daysOfWeek: [\'日\', \'一\', \'二\', \'三\', \'四\', \'五\', \'六\'],
-                monthNames: [\'一月\', \'二月\', \'三月\', \'四月\', \'五月\', \'六月\', \'七月\', \'八月\', \'九月\', \'十月\', \'十一月\', \'十二月\'],
-       	    },
-            opens: \'left\',
-        });
-    });
-', \yii\web\View::POS_END)
+KvStorageAsset::register($this);
 ?>
 
 <?php \yii\widgets\Pjax::begin() ?>
@@ -43,18 +22,58 @@ $this->registerJs('
 
     <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <label>Date and time range:</label>
-
-        <div class="input-group">
-            <div class="input-group-addon">
-                <i class="fa fa-clock-o"></i>
+    <div class="valueControl">
+        <?= $form->field($model, 'value', ['options' => ['id' => 'kv-value-1','class' => 'form-group']])->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'value', ['options' => ['id' => 'kv-value-2','class' => 'form-group hide']])->dropDownList([0 => '否', 1 => '是']) ?>
+        <div class="form-group hide" id="kv-value-3">
+            <label>Value:</label>
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="<?= $model->formName() . '[value]' ?>" class="form-control pull-right"
+                       id="datepicker">
             </div>
-            <input type="text" class="form-control pull-right" id="reservationtime">
         </div>
-        <!-- /.input group -->
+        <div class="form-group hide" id="kv-value-4">
+            <label>Value:</label>
+            <div>
+                <div class="fl one">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="fl ot">:</div>
+                <div class="fl one">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="form-group hide" id="kv-value-5">
+            <label>Value:</label>
+            <div>
+                <div class="fl one">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="fl ot">to</div>
+                <div class="fl one">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="form-group hide" id="kv-value-6">
+            <label>Value:</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="<?= $model->formName() . '[value]' ?>"
+                       value="2019/07/12 00:00:00 - 2019/07/13 00:00:00" class="form-control pull-right"
+                       id="reservationtime">
+            </div>
+            <!-- /.input group -->
+        </div>
     </div>
-
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

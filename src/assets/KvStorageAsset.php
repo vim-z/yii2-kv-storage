@@ -6,15 +6,15 @@ namespace vimZ\kvStorage\assets;
 
 use yii\web\AssetBundle;
 
-class DatePickerAsset extends AssetBundle
+class KvStorageAsset extends AssetBundle
 {
     public $sourcePath = '@vimZ/kvStorage/assets/dist/';
 
     public $css = [
         'css/font-awesome.min.css',
         'css/ionicons.min.css',
-        'css/bootstrap-datepicker.min.css',
-        'css/daterangepicker.css'
+        'css/daterangepicker.css',
+        'css/kv-storage.css'
     ];
 
     /**
@@ -22,8 +22,8 @@ class DatePickerAsset extends AssetBundle
      */
     public $js = [
         'js/moment.min.js',
-        'js/bootstrap-datepicker.min.js',
         'js/daterangepicker.js',
+        'js/kv-storage.js',
     ];
 
     /**
