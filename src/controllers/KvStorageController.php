@@ -2,6 +2,7 @@
 
 namespace vimZ\kvStorage\controllers;
 
+use vimZ\kvStorage\models\forms\KvStorageForm;
 use Yii;
 use vimZ\kvStorage\models\KvStorage;
 use vimZ\kvStorage\models\KvStorageSearch;
@@ -64,7 +65,7 @@ class KvStorageController extends Controller
      */
     public function actionCreate()
     {
-        $model = new KvStorage();
+        $model = new KvStorageForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->key]);
@@ -89,6 +90,8 @@ class KvStorageController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->key]);
         }
+
+        $model->decodeValue();
 
         return $this->render('update', [
             'model' => $model,
@@ -118,7 +121,7 @@ class KvStorageController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = KvStorage::findOne($id)) !== null) {
+        if (($model = KvStorageForm::findOne($id)) !== null) {
             return $model;
         }
 
