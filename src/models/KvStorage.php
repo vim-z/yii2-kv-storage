@@ -3,6 +3,7 @@
 namespace vimZ\kvStorage\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%kv_storage}}".
@@ -42,6 +43,19 @@ class KvStorage extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%kv_storage}}';
+    }
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors[] = [
+            'class' => TimestampBehavior::className(),
+            'attributes' => [
+                self::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                self::EVENT_BEFORE_UPDATE => ['updated_at'],
+            ],
+        ];
+        return $behaviors;
     }
 
     /**
