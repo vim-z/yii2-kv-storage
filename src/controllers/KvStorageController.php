@@ -6,6 +6,7 @@ use vimZ\kvStorage\models\forms\KvStorageForm;
 use Yii;
 use vimZ\kvStorage\models\KvStorage;
 use vimZ\kvStorage\models\KvStorageSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -88,6 +89,9 @@ class KvStorageController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $components = Yii::$app->getComponents();
+            $componentId = array_flip(ArrayHelper::getColumn($components,'class'))['vimZ\kvStorage\components\KvStorage'];
+            Yii::$app->$componentId->deleteCache($id);
             return $this->redirect(['view', 'id' => $model->key]);
         }
 
